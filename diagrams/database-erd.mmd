@@ -1,0 +1,93 @@
+erDiagram
+    USERS {
+        uuid id PK
+        varchar email
+        varchar name
+        varchar phone
+        text address
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CATEGORIES {
+        uuid id PK
+        varchar name
+        varchar slug
+        text description
+        varchar image_url
+        timestamp created_at
+    }
+    
+    PRODUCTS {
+        uuid id PK
+        uuid category_id FK
+        varchar name
+        text description
+        decimal price
+        decimal discount_price
+        integer stock_quantity
+        json images
+        json specifications
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CART_ITEMS {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        integer quantity
+        timestamp created_at
+    }
+    
+    WISHLIST {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        timestamp created_at
+    }
+    
+    ORDERS {
+        uuid id PK
+        uuid user_id FK
+        decimal total_amount
+        varchar status
+        json shipping_address
+        varchar payment_method
+        varchar payment_status
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        integer quantity
+        decimal price
+        timestamp created_at
+    }
+    
+    REVIEWS {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        integer rating
+        text comment
+        timestamp created_at
+    }
+    
+    USERS ||--o{ CART_ITEMS : "has"
+    USERS ||--o{ WISHLIST : "has"
+    USERS ||--o{ ORDERS : "places"
+    USERS ||--o{ REVIEWS : "writes"
+    
+    CATEGORIES ||--o{ PRODUCTS : "contains"
+    
+    PRODUCTS ||--o{ CART_ITEMS : "in"
+    PRODUCTS ||--o{ WISHLIST : "in"
+    PRODUCTS ||--o{ ORDER_ITEMS : "in"
+    PRODUCTS ||--o{ REVIEWS : "has"
+    
+    ORDERS ||--o{ ORDER_ITEMS : "contains"

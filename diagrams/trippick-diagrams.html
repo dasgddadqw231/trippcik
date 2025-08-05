@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripPick 웹앱 다이어그램</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #1e40af;
+            border-bottom: 3px solid #dbeafe;
+            padding-bottom: 10px;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .mermaid {
+            text-align: center;
+        }
+        .description {
+            background: #f0f9ff;
+            padding: 15px;
+            border-left: 4px solid #2563eb;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .print-break {
+            page-break-before: always;
+        }
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; padding: 20px; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🧳 TripPick 웹앱 다이어그램</h1>
+        
+        <div class="description">
+            <strong>프로젝트 개요:</strong> TripPick은 여행자들을 위한 전문 쇼핑몰 웹앱입니다. 
+            Next.js와 Supabase를 활용하여 구현하며, 여행용품 판매 및 관리 기능을 제공합니다.
+        </div>
+
+        <h2>📋 1. 사이트맵 (Site Map)</h2>
+        <div class="description">
+            웹사이트의 전체 페이지 구조와 네비게이션을 보여주는 사이트맵입니다.
+            사용자 영역과 관리자 영역이 구분되어 있으며, 각 기능별 세부 페이지들이 체계적으로 구성되어 있습니다.
+        </div>
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TD
+    A[홈페이지] --> B[쇼핑]
+    A --> C[브랜드 소개]
+    A --> D[고객센터]
+    A --> E[로그인/회원가입]
+    
+    B --> B1[전체 상품]
+    B --> B2[의류]
+    B --> B3[가방/캐리어]
+    B --> B4[액세서리]
+    B --> B5[전자제품]
+    B --> B6[세면용품]
+    
+    B1 --> B1a[상품 상세페이지]
+    B2 --> B1a
+    B3 --> B1a
+    B4 --> B1a
+    B5 --> B1a
+    B6 --> B1a
+    
+    B1a --> B1a1[리뷰 작성]
+    B1a --> B1a2[장바구니 담기]
+    B1a --> B1a3[위시리스트 추가]
+    
+    E --> E1[로그인]
+    E --> E2[회원가입]
+    E --> E3[비밀번호 찾기]
+    
+    A --> F[마이페이지]
+    F --> F1[프로필 수정]
+    F --> F2[주문내역]
+    F --> F3[위시리스트]
+    F --> F4[리뷰 관리]
+    F --> F5[배송지 관리]
+    
+    A --> G[장바구니]
+    G --> G1[상품 수량 변경]
+    G --> G2[상품 삭제]
+    G --> G3[주문하기]
+    
+    G3 --> H[주문/결제]
+    H --> H1[배송정보 입력]
+    H --> H2[결제수단 선택]
+    H --> H3[주문 완료]
+    
+    A --> I[관리자 페이지]
+    I --> I1[상품 관리]
+    I --> I2[주문 관리]
+    I --> I3[사용자 관리]
+    I --> I4[통계 대시보드]
+    
+    I1 --> I1a[상품 등록]
+    I1 --> I1b[상품 수정]
+    I1 --> I1c[재고 관리]
+    
+    D --> D1[FAQ]
+    D --> D2[1:1 문의]
+    D --> D3[공지사항]
+    D --> D4[이용약관]
+            </div>
+        </div>
+
+        <div class="print-break"></div>
+        <h2>🔄 2. 사용자 플로우차트 (User Flow)</h2>
+        <div class="description">
+            고객이 사이트 방문부터 구매 완료까지의 전체 여정을 보여주는 플로우차트입니다.
+            로그인/비로그인 사용자 모두를 고려하며, 결제 실패 등 예외 상황도 포함되어 있습니다.
+        </div>
+        <div class="diagram-container">
+            <div class="mermaid">
+flowchart TD
+    Start([사용자 방문]) --> A{로그인 상태?}
+    
+    A -->|No| B[홈페이지 둘러보기]
+    A -->|Yes| C[개인화된 홈페이지]
+    
+    B --> D[회원가입/로그인]
+    D --> C
+    B --> E[비회원으로 계속]
+    
+    C --> F[상품 카테고리 선택]
+    E --> F
+    
+    F --> G[상품 리스트 보기]
+    G --> H[필터/검색 적용]
+    H --> I[상품 상세페이지]
+    
+    I --> J{관심있는 상품?}
+    J -->|No| G
+    J -->|Yes| K[위시리스트 추가]
+    J -->|Yes| L[장바구니 추가]
+    
+    K --> M[계속 쇼핑]
+    M --> F
+    
+    L --> N{더 쇼핑?}
+    N -->|Yes| F
+    N -->|No| O[장바구니 확인]
+    
+    O --> P[수량 조정]
+    P --> Q[주문하기]
+    
+    Q --> R{로그인 상태?}
+    R -->|No| S[로그인 요구]
+    S --> T[로그인/회원가입]
+    T --> U[배송정보 입력]
+    R -->|Yes| U
+    
+    U --> V[결제수단 선택]
+    V --> W[최종 주문 확인]
+    W --> X[결제 진행]
+    
+    X --> Y{결제 성공?}
+    Y -->|No| Z[결제 실패 안내]
+    Z --> V
+    Y -->|Yes| AA[주문 완료]
+    
+    AA --> BB[주문확인 이메일]
+    BB --> CC[마이페이지에서 주문추적]
+    
+    CC --> DD[상품 수령]
+    DD --> EE[리뷰 작성]
+    EE --> FF([쇼핑 완료])
+            </div>
+        </div>
+
+        <div class="print-break"></div>
+        <h2>👨‍💼 3. 관리자 플로우차트 (Admin Flow)</h2>
+        <div class="description">
+            관리자의 주요 업무 프로세스를 시각화한 플로우차트입니다.
+            상품 등록, 주문 처리, 재고 관리 등 핵심 관리 기능들의 세부 단계를 보여줍니다.
+        </div>
+        <div class="diagram-container">
+            <div class="mermaid">
+flowchart TD
+    Admin([관리자 로그인]) --> Dashboard[관리자 대시보드]
+    
+    Dashboard --> A[상품 관리]
+    Dashboard --> B[주문 관리] 
+    Dashboard --> C[사용자 관리]
+    Dashboard --> D[통계 분석]
+    
+    A --> A1[새 상품 등록]
+    A --> A2[기존 상품 수정]
+    A --> A3[재고 관리]
+    A --> A4[카테고리 관리]
+    
+    A1 --> A1a[상품 정보 입력]
+    A1a --> A1b[이미지 업로드]
+    A1b --> A1c[가격 설정]
+    A1c --> A1d[재고 수량 입력]
+    A1d --> A1e[카테고리 선택]
+    A1e --> A1f[상품 등록 완료]
+    
+    A2 --> A2a[상품 선택]
+    A2a --> A2b[정보 수정]
+    A2b --> A2c[변경사항 저장]
+    
+    A3 --> A3a[재고 부족 알림 확인]
+    A3a --> A3b[재고 수량 업데이트]
+    
+    B --> B1[신규 주문 확인]
+    B --> B2[주문 상태 업데이트]
+    B --> B3[배송 관리]
+    B --> B4[환불/취소 처리]
+    
+    B1 --> B1a[주문 상세 정보 확인]
+    B1a --> B1b{재고 확인}
+    B1b -->|충분| B1c[주문 승인]
+    B1b -->|부족| B1d[재고 부족 안내]
+    B1c --> B1e[배송 준비]
+    
+    B2 --> B2a[배송 상태 변경]
+    B2a --> B2b[고객 알림 발송]
+    
+    C --> C1[사용자 목록 조회]
+    C --> C2[문의사항 답변]
+    C --> C3[사용자 권한 관리]
+    
+    D --> D1[매출 통계]
+    D --> D2[인기 상품 분석]
+    D --> D3[사용자 행동 분석]
+            </div>
+        </div>
+
+        <div class="print-break"></div>
+        <h2>🗄️ 4. 데이터베이스 ERD (Entity Relationship Diagram)</h2>
+        <div class="description">
+            TripPick 웹앱의 데이터베이스 구조를 보여주는 ERD입니다.
+            사용자, 상품, 주문, 리뷰 등 핵심 엔티티들과 그들 간의 관계를 명확히 표현합니다.
+        </div>
+        <div class="diagram-container">
+            <div class="mermaid">
+erDiagram
+    USERS {
+        uuid id PK
+        varchar email
+        varchar name
+        varchar phone
+        text address
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CATEGORIES {
+        uuid id PK
+        varchar name
+        varchar slug
+        text description
+        varchar image_url
+        timestamp created_at
+    }
+    
+    PRODUCTS {
+        uuid id PK
+        uuid category_id FK
+        varchar name
+        text description
+        decimal price
+        decimal discount_price
+        integer stock_quantity
+        json images
+        json specifications
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CART_ITEMS {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        integer quantity
+        timestamp created_at
+    }
+    
+    WISHLIST {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        timestamp created_at
+    }
+    
+    ORDERS {
+        uuid id PK
+        uuid user_id FK
+        decimal total_amount
+        varchar status
+        json shipping_address
+        varchar payment_method
+        varchar payment_status
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        integer quantity
+        decimal price
+        timestamp created_at
+    }
+    
+    REVIEWS {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        integer rating
+        text comment
+        timestamp created_at
+    }
+    
+    USERS ||--o{ CART_ITEMS : "has"
+    USERS ||--o{ WISHLIST : "has"
+    USERS ||--o{ ORDERS : "places"
+    USERS ||--o{ REVIEWS : "writes"
+    
+    CATEGORIES ||--o{ PRODUCTS : "contains"
+    
+    PRODUCTS ||--o{ CART_ITEMS : "in"
+    PRODUCTS ||--o{ WISHLIST : "in"
+    PRODUCTS ||--o{ ORDER_ITEMS : "in"
+    PRODUCTS ||--o{ REVIEWS : "has"
+    
+    ORDERS ||--o{ ORDER_ITEMS : "contains"
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <p style="text-align: center; color: #6b7280; font-size: 0.9em;">
+                <strong>TripPick 웹앱 프로젝트</strong><br>
+                Next.js + Supabase 기반 여행용품 쇼핑몰<br>
+                생성일: <%= new Date().toLocaleDateString('ko-KR') %>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+</html>
