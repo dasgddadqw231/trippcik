@@ -115,9 +115,9 @@ export default function HomePage() {
             <h1 className="text-3xl font-bold text-gray-900 mb-3 leading-tight">
               New Culture of<br/>Korean Travel Shopping
             </h1>
-            <div className="inline-block bg-white bg-opacity-80 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
+            <Link href="/shop" className="inline-block bg-white bg-opacity-80 backdrop-blur-sm px-4 py-2 rounded-full mb-4 hover:bg-opacity-90 transition-all duration-300 cursor-pointer">
               <p className="text-lg font-medium text-primary-700">TripPick</p>
-            </div>
+            </Link>
             <p className="text-gray-600 leading-relaxed max-w-xs mx-auto">
               Pre-order your desired Korean products<br/>
               <span className="font-medium text-primary-600">and pick them up locally</span>
