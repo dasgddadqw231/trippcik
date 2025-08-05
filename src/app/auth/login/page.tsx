@@ -3,6 +3,8 @@
 import { TopHeader } from '@/components/layout/TopHeader'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import mainLogo from '@/app/1. main logo.png'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -11,16 +13,21 @@ export default function LoginPage() {
 
   return (
     <>
-      <TopHeader title="Login" showBack={true} showCart={false} showNotifications={false} />
+      <TopHeader title="Login" showBack={true} showCart={false} showNotifications={false} showSettings={false} />
       
       <div className="page-content px-4">
         {/* Logo Section */}
-        <div className="text-center mb-8 mt-8">
-          <div className="w-20 h-20 bg-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl font-bold text-white">TP</span>
+        <div className="text-center mb-0 mt-0">
+          <div className="w-64 h-64 mx-auto mb-0">
+            <Image
+              src={mainLogo}
+              alt="TripPick Logo"
+              width={1000}
+              height={1000}
+              className="w-full h-full object-contain rounded-2xl"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome to TripPick</h1>
-          <p className="text-gray-500">Sign in to discover more benefits</p>
+      
         </div>
 
         {/* Login Form */}
