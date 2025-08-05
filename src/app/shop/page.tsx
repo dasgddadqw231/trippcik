@@ -83,7 +83,7 @@ export default function ShopPage() {
   const [activeBrand, setActiveBrand] = useState('All')
   const [activeCategory, setActiveCategory] = useState('All')
 
-  const handleProductClick = (product) => {
+  const handleProductClick = (product: any) => {
     setSelectedProduct(product)
     setIsModalOpen(true)
   }
