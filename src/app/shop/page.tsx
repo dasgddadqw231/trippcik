@@ -74,7 +74,7 @@ const PRODUCTS = [
 ]
 
 export default function ShopPage() {
-  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [selectedProduct, setSelectedProduct] = useState(undefined)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false)
   const [isSortModalOpen, setIsSortModalOpen] = useState(false)
@@ -90,7 +90,7 @@ export default function ShopPage() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setSelectedProduct(null)
+    setSelectedProduct(undefined)
   }
 
   const handleFilterOpen = () => {
