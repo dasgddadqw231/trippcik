@@ -7,7 +7,7 @@ export default function NotificationsPage() {
       id: 1,
       type: 'order',
       title: 'Your order has been shipped',
-      message: '샤넬 No.5 향수 주문이 배송을 시작했습니다. 택배 번호: 1234567890',
+      message: 'Your Chanel No.5 perfume order has started shipping. Tracking number: 1234567890',
       time: '2024-08-03 14:30',
       isRead: false,
       icon: '📦'
@@ -15,8 +15,8 @@ export default function NotificationsPage() {
     {
       id: 2,
       type: 'promotion',
-      title: '🎉 특가 세일 시작!',
-      message: '구찌 가방 최대 30% 할인! 놓치면 후회할 기회입니다.',
+      title: '🎉 Special Sale Started!',
+      message: 'Up to 30% off on Gucci bags! Don\'t miss this opportunity.',
       time: '2024-08-03 10:15',
       isRead: false,
       icon: '🏷️'
@@ -24,8 +24,8 @@ export default function NotificationsPage() {
     {
       id: 3,
       type: 'point',
-      title: '포인트 적립 완료',
-      message: '리뷰 작성으로 200P가 적립되었습니다.',
+      title: 'Points Earned',
+      message: '200 points have been earned for writing a review.',
       time: '2024-08-02 16:45',
       isRead: true,
       icon: '💰'
@@ -33,8 +33,8 @@ export default function NotificationsPage() {
     {
       id: 4,
       type: 'wishlist',
-      title: '찜한 상품 재입고',
-      message: '나이키 에어맥스가 재입고되었습니다. 지금 확인해보세요!',
+      title: 'Wishlist Item Restocked',
+      message: 'Nike Air Max is back in stock. Check it out now!',
       time: '2024-08-02 09:20',
       isRead: true,
       icon: '💝'
@@ -42,8 +42,8 @@ export default function NotificationsPage() {
     {
       id: 5,
       type: 'system',
-      title: '개인정보 처리방침 변경 안내',
-      message: '2024년 8월 1일부터 변경된 개인정보 처리방침이 적용됩니다.',
+      title: 'Privacy Policy Update Notice',
+      message: 'Updated privacy policy will be applied from August 1, 2024.',
       time: '2024-08-01 12:00',
       isRead: true,
       icon: '📄'
@@ -57,11 +57,11 @@ export default function NotificationsPage() {
     const notificationTime = new Date(dateString)
     const diffInHours = Math.floor((now.getTime() - notificationTime.getTime()) / (1000 * 60 * 60))
     
-    if (diffInHours < 1) return '방금 전'
-    if (diffInHours < 24) return `${diffInHours}시간 전`
+    if (diffInHours < 1) return 'Just now'
+    if (diffInHours < 24) return `${diffInHours}h ago`
     
     const diffInDays = Math.floor(diffInHours / 24)
-    return `${diffInDays}일 전`
+    return `${diffInDays}d ago`
   }
 
   const getTypeColor = (type: string) => {
@@ -77,29 +77,29 @@ export default function NotificationsPage() {
 
   const getTypeName = (type: string) => {
     switch (type) {
-      case 'order': return '주문'
-      case 'promotion': return '이벤트'
-      case 'point': return '포인트'
-      case 'wishlist': return '찜'
-      case 'system': return '시스템'
-      default: return '알림'
+      case 'order': return 'Order'
+      case 'promotion': return 'Event'
+      case 'point': return 'Points'
+      case 'wishlist': return 'Wishlist'
+      case 'system': return 'System'
+      default: return 'Notification'
     }
   }
 
   return (
     <>
-      <TopHeader title="알림" showBack={true} />
+      <TopHeader title="Notifications" showBack={true} />
       
       <div className="page-content px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-bold text-gray-900">알림</h2>
+          <h2 className="text-lg font-bold text-gray-900">Notifications</h2>
           <div className="flex items-center gap-3">
             <span className="text-sm text-gray-500">
-              {unreadCount > 0 && `${unreadCount}개의 새 알림`}
+              {unreadCount > 0 && `${unreadCount} new notifications`}
             </span>
             <button className="text-sm text-primary-600 hover:underline">
-              모두 읽음
+              Mark all read
             </button>
           </div>
         </div>
@@ -152,21 +152,21 @@ export default function NotificationsPage() {
                 {notification.type === 'order' && (
                   <div className="mt-3 pt-3 border-t border-gray-100">
                     <div className="flex gap-2">
-                      <button className="btn-secondary text-xs px-3 py-2">배송 조회</button>
-                      <button className="btn-primary text-xs px-3 py-2">주문 상세</button>
+                      <button className="btn-secondary text-xs px-3 py-2">Track Order</button>
+                      <button className="btn-primary text-xs px-3 py-2">Order Details</button>
                     </div>
                   </div>
                 )}
 
                 {notification.type === 'promotion' && (
                   <div className="mt-3 pt-3 border-t border-gray-100">
-                    <button className="btn-primary text-xs px-3 py-2 w-full">특가 상품 보러가기</button>
+                    <button className="btn-primary text-xs px-3 py-2 w-full">View Sale Items</button>
                   </div>
                 )}
 
                 {notification.type === 'wishlist' && (
                   <div className="mt-3 pt-3 border-t border-gray-100">
-                    <button className="btn-primary text-xs px-3 py-2 w-full">상품 확인하기</button>
+                    <button className="btn-primary text-xs px-3 py-2 w-full">View Product</button>
                   </div>
                 )}
               </div>
@@ -174,7 +174,7 @@ export default function NotificationsPage() {
 
             {/* Load More */}
             <div className="text-center pt-6">
-              <button className="btn-secondary px-6 py-3">더 보기</button>
+              <button className="btn-secondary px-6 py-3">Load More</button>
             </div>
           </div>
         ) : (
@@ -185,8 +185,8 @@ export default function NotificationsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM5 12V7a5 5 0 1110 0v5a2 2 0 01-2 2H7a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <h3 className="font-medium text-gray-900 mb-2">새로운 알림이 없어요</h3>
-            <p className="text-sm text-gray-500">새로운 소식이 있으면 알려드릴게요</p>
+            <h3 className="font-medium text-gray-900 mb-2">No new notifications</h3>
+            <p className="text-sm text-gray-500">We'll notify you when there's new updates</p>
           </div>
         )}
 
@@ -198,12 +198,12 @@ export default function NotificationsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <div>
-              <h4 className="font-medium text-blue-900 text-sm mb-1">알림 설정</h4>
+              <h4 className="font-medium text-blue-900 text-sm mb-1">Notification Settings</h4>
               <p className="text-blue-700 text-xs mb-3">
-                원하는 알림만 받아보세요. 언제든지 설정을 변경할 수 있습니다.
+                Choose which notifications you want to receive. You can change these settings anytime.
               </p>
               <button className="btn-primary text-xs px-4 py-2">
-                알림 설정하기
+                Manage Settings
               </button>
             </div>
           </div>
