@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'TripPick - 여행용품 전문 쇼핑몰',
-  description: '트립픽에서 원하는 여행용품을 찾아보세요',
+  title: 'TripPick - Korean Travel Shopping',
+  description: 'Pre-order your desired Korean products and pick them up locally with TripPick',
 }
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko">
+    <html lang="en">
       <body>
         <div className="app-container">
           {children}
